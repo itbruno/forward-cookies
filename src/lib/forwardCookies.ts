@@ -5,12 +5,6 @@ interface SetCookiesProps {
   domain?: string;
 }
 
-interface CookiesToSetInUrl {
-  cookieName?: string;
-  url?: string;
-  delimiter?: string;
-}
-
 export class ForwardCookies {
   storageCookie: string;
   debug: boolean;
@@ -115,5 +109,46 @@ export class ForwardCookies {
     if (this.debug) console.log(`[addCookieToUrl]: ${fullUrlOutput}`);
 
     return fullUrlOutput;
+  }
+
+  /**
+   * Parse raw cookie string
+   * @param {string} cookie - Raw cookie to parse
+   * @param {string} delimiter - Delimiter string to split and get last part from array generated
+   */
+  parseCookieString(cookie: string, delimiter: string) {
+    let parsedUrlCookie = null;
+    if (delimiter && cookie.includes(delimiter)) {
+      parsedUrlCookie = JSON.parse(
+        decodeURIComponent(cookie).split(delimiter)[1]
+      );
+    } else {
+      parsedUrlCookie = JSON.parse(decodeURIComponent(cookie));
+    }
+
+    return {
+      json: parsedUrlCookie,
+      encoded: cookie,
+    };
+  }
+
+  /**
+   * Get cookie data from url
+   * @param {string} obj.cookieName - Name of the cookie at url as param
+   * @param {string} obj.delimiter - Optional is needed split cookie to get data
+   * @param {string} obj.url - Optional if is not the current url
+   */
+  getCookieFromUrl(
+    cookieName = this.cookieName,
+    delimiter: string,
+    url = window.location.href
+  ) {
+    const URLCOOKIE = url.split(cookieName + "=")[1];
+    const output = this.parseCookieString(
+      URLCOOKIE,
+      delimiter ? delimiter : ""
+    );
+
+    return output;
   }
 }
