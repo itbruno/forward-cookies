@@ -5,6 +5,12 @@ interface SetCookiesProps {
   domain?: string;
 }
 
+interface CookiesToSetInUrl {
+  cookieName?: string;
+  url?: string;
+  delimiter?: string;
+}
+
 export class ForwardCookies {
   storageCookie: string;
   debug: boolean;
@@ -76,5 +82,38 @@ export class ForwardCookies {
 
     document.cookie = `${cookieName}=${value};${expirationDate};domain=${currentHost};path=/;`;
     console.warn("Created Cookie: " + cookieName + " from: " + currentHost);
+  }
+
+  /**
+   * Add cookie to URL
+   * @param {string} obj.url - Origin url that will erceive cookie as param
+   * @param {string} obj.cookieName - Name of the cookie to add in url
+   * @param {string} obj.delimiter - Delimiter to split at url
+   */
+  generateCookieAsUrl(
+    cookieName = this.cookieName,
+    url: string = location.href,
+    delimiter: string
+  ) {
+    let cookieAsParam;
+
+    const COOKIE = delimiter
+      ? decodeURIComponent(this.getCookie(cookieName)).split(delimiter)[1]
+      : this.getCookie(cookieName);
+
+    if (url.includes("?")) {
+      cookieAsParam = `&${cookieName}=${
+        delimiter ? encodeURIComponent(COOKIE) : COOKIE
+      }`;
+    } else {
+      cookieAsParam = `?${cookieName}=${
+        delimiter ? encodeURIComponent(COOKIE) : COOKIE
+      }`;
+    }
+
+    const fullUrlOutput = url + cookieAsParam;
+    if (this.debug) console.log(`[addCookieToUrl]: ${fullUrlOutput}`);
+
+    return fullUrlOutput;
   }
 }
