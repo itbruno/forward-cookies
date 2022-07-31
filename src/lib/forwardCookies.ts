@@ -1,3 +1,10 @@
+interface SetCookiesProps {
+  cookieName?: string;
+  value?: string;
+  expiration?: number;
+  domain?: string;
+}
+
 export class ForwardCookies {
   storageCookie: string;
   debug: boolean;
@@ -43,5 +50,31 @@ export class ForwardCookies {
       "; path=/";
 
     console.warn("Deleted Cookie: " + COOKIE_NAME + " from: " + currentHost);
+  }
+
+  /**
+   * Set Cookie value to a new value
+   * @param {string} obj.cookieName - Name of the cookie to create
+   * @param {string} obj.value - Stringified value to add on Cookie
+   * @param {number} obj.expiration - Expiration coookie days | defaults 30
+   * @param {string} obj.domain - Optional if needs a custom domain
+   */
+  setCookie({
+    cookieName = this.cookieName,
+    value,
+    expiration = 30,
+    domain,
+  }: SetCookiesProps) {
+    // Delete cookie with same name if exists
+    this.deleteCookie(cookieName);
+
+    const getDate = new Date();
+    getDate.setTime(getDate.getTime() + expiration * 24 * 60 * 60 * 1000);
+    let expirationDate = "expires=" + getDate.toUTCString();
+
+    const currentHost = domain ? domain : location.hostname.replace("www", "");
+
+    document.cookie = `${cookieName}=${value};${expirationDate};domain=${currentHost};path=/;`;
+    console.warn("Created Cookie: " + cookieName + " from: " + currentHost);
   }
 }
