@@ -7,10 +7,10 @@ interface SetCookiesProps {
 
 export class ForwardCookies {
   storageCookie: string;
-  debug: boolean;
-  cookieName: string;
+  debug?: boolean;
+  cookieName?: string;
 
-  constructor(cookieName: string, debug: boolean) {
+  constructor(cookieName?: string, debug?: boolean) {
     this.cookieName = cookieName;
     this.debug = debug;
     this.storageCookie = document.cookie;
@@ -19,7 +19,7 @@ export class ForwardCookies {
   /**
    * Get raw Cookie
    */
-  getCookie(cookieName: string) {
+  getCookie(cookieName?: string) {
     const value = "; " + document.cookie;
     const parts: string[] = value.split(
       `; ${this.cookieName}=` || `${cookieName}=`
@@ -39,7 +39,7 @@ export class ForwardCookies {
    * Delete cookie
    * @param {string} cookieName - Name of the cookie to delete
    */
-  deleteCookie(cookieName: string) {
+  deleteCookie(cookieName?: string) {
     const COOKIE_NAME = this.cookieName || cookieName;
 
     var currentHost = location.hostname.replace("www", "");
@@ -85,23 +85,25 @@ export class ForwardCookies {
    * @param {string} obj.delimiter - Delimiter to split at url
    */
   generateCookieAsUrl(
-    cookieName = this.cookieName,
+    cookieName?: string,
     url: string = location.href,
-    delimiter: string
+    delimiter?: string
   ) {
     let cookieAsParam;
 
+    const COOKIE_NAME = cookieName ?? this.cookieName;
+
     const COOKIE = delimiter
-      ? decodeURIComponent(this.getCookie(cookieName)).split(delimiter)[1]
-      : this.getCookie(cookieName);
+      ? decodeURIComponent(this.getCookie(COOKIE_NAME)!).split(delimiter)[1]
+      : this.getCookie(COOKIE_NAME);
 
     if (url.includes("?")) {
-      cookieAsParam = `&${cookieName}=${
-        delimiter ? encodeURIComponent(COOKIE) : COOKIE
+      cookieAsParam = `&${COOKIE_NAME}=${
+        delimiter ? encodeURIComponent(COOKIE!) : COOKIE
       }`;
     } else {
-      cookieAsParam = `?${cookieName}=${
-        delimiter ? encodeURIComponent(COOKIE) : COOKIE
+      cookieAsParam = `?${COOKIE_NAME}=${
+        delimiter ? encodeURIComponent(COOKIE!) : COOKIE
       }`;
     }
 
@@ -139,11 +141,13 @@ export class ForwardCookies {
    * @param {string} obj.url - Optional if is not the current url
    */
   getCookieFromUrl(
-    cookieName = this.cookieName,
-    delimiter: string,
+    cookieName?: string,
+    delimiter?: string,
     url = window.location.href
   ) {
-    const URLCOOKIE = url.split(cookieName + "=")[1];
+    const COOKIE_NAME = cookieName || this.cookieName;
+
+    const URLCOOKIE = url.split(COOKIE_NAME + "=")[1];
     const output = this.parseCookieString(
       URLCOOKIE,
       delimiter ? delimiter : ""
