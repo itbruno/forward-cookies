@@ -27,4 +27,21 @@ export class ForwardCookies {
 
     console.error("Error: Cookie name not found, try another.");
   }
+
+  /**
+   * Delete cookie
+   * @param {string} cookieName - Name of the cookie to delete
+   */
+  deleteCookie(cookieName: string) {
+    const COOKIE_NAME = this.cookieName || cookieName;
+
+    var currentHost = location.hostname.replace("www", "");
+    document.cookie =
+      COOKIE_NAME +
+      "=; expires=Thu, 18 Dec 1990 12:00:00 UTC; domain=" +
+      currentHost +
+      "; path=/";
+
+    console.warn("Deleted Cookie: " + COOKIE_NAME + " from: " + currentHost);
+  }
 }
