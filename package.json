@@ -1,14 +1,26 @@
 {
   "name": "forward-cookies",
-  "private": true,
+  "private": false,
+  "author": "Bruno Rodrigues",
+  "license": "MIT",
   "version": "0.1.0",
   "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "rollup": "rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "rollup": "^2.60.0",
+    "rollup-plugin-dts": "^4.0.1",
+    "rollup-plugin-postcss": "^4.0.1",
+    "tslib": "^2.4.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.0"
   },
