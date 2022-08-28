@@ -42,14 +42,9 @@ export class ForwardCookies {
   deleteCookie(cookieName?: string) {
     const COOKIE_NAME = this.cookieName || cookieName;
 
-    var currentHost = location.hostname.replace("www", "");
-    document.cookie =
-      COOKIE_NAME +
-      "=; expires=Thu, 18 Dec 1990 12:00:00 UTC; domain=" +
-      currentHost +
-      "; path=/";
+    document.cookie = `${COOKIE_NAME}=; expires=Thu, 18 Dec 1990 12:00:00 UTC; path=/`;
 
-    console.warn("Deleted Cookie: " + COOKIE_NAME + " from: " + currentHost);
+    console.warn(`Deleted Cookie: ${COOKIE_NAME}`);
   }
 
   /**
