@@ -59,6 +59,7 @@ export class ForwardCookies {
     value,
     expiration = 30,
     domain,
+    path,
   }: SetCookiesProps) {
     // Delete cookie with same name if exists
     this.deleteCookie(cookieName);
@@ -69,7 +70,9 @@ export class ForwardCookies {
 
     const currentHost = domain ? domain : location.hostname.replace("www", "");
 
-    document.cookie = `${cookieName}=${value};${expirationDate};domain=${currentHost};path=/;`;
+    document.cookie = `${cookieName}=${value};${expirationDate};domain=${currentHost};path=${
+      path ?? "/"
+    };`;
     console.warn(`Created Cookie: ${cookieName}`);
   }
 
