@@ -3,6 +3,7 @@ interface SetCookiesProps {
   value?: string;
   expiration?: number;
   domain?: string;
+  path?: string;
 }
 
 export class ForwardCookies {
