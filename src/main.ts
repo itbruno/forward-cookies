@@ -1,4 +1,4 @@
-import { ForwardCookies } from "./lib/forwardCookies";
+import { ForwardCookies } from "./lib/ForwardCookies";
 
 var pageCookie = new ForwardCookies("user", true);
 
@@ -25,5 +25,3 @@ btnSetUrl?.addEventListener("click", () => {
 btnDelete?.addEventListener("click", () => {
   pageCookie.deleteCookie();
 });
-
-console.log(pageCookie.getCookieFromUrl());
