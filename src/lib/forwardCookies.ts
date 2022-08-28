@@ -20,7 +20,7 @@ export class ForwardCookies {
    * Get raw Cookie
    */
   getCookie(cookieName?: string) {
-    const value = "; " + document.cookie;
+    const value = `; ${document.cookie}`;
     const parts: string[] = value.split(
       `; ${this.cookieName}=` || `${cookieName}=`
     );
@@ -65,12 +65,12 @@ export class ForwardCookies {
 
     const getDate = new Date();
     getDate.setTime(getDate.getTime() + expiration * 24 * 60 * 60 * 1000);
-    let expirationDate = "expires=" + getDate.toUTCString();
+    let expirationDate = `expires=${getDate.toUTCString()}`;
 
     const currentHost = domain ? domain : location.hostname.replace("www", "");
 
     document.cookie = `${cookieName}=${value};${expirationDate};domain=${currentHost};path=/;`;
-    console.warn("Created Cookie: " + cookieName + " from: " + currentHost);
+    console.warn(`Created Cookie: ${cookieName}`);
   }
 
   /**
@@ -142,7 +142,7 @@ export class ForwardCookies {
   ) {
     const COOKIE_NAME = cookieName || this.cookieName;
 
-    const URLCOOKIE = url.split(COOKIE_NAME + "=")[1];
+    const URLCOOKIE = url.split(`${COOKIE_NAME}=`)[1];
     const output = this.parseCookieString(
       URLCOOKIE,
       delimiter ? delimiter : ""
