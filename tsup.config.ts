@@ -7,4 +7,5 @@ export default defineConfig({
   clean: true,
   minify: true,
   dts: true,
+  format: ["cjs", "esm", "iife"],
 });
