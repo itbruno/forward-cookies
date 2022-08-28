@@ -19,7 +19,7 @@ export class ForwardCookies {
   /**
    * Get raw Cookie
    */
-  public getCookie(cookieName?: string) {
+  getCookie(cookieName?: string) {
     const value = `; ${document.cookie}`;
     const parts: string[] = value.split(
       `; ${this.cookieName}=` || `${cookieName}=`
