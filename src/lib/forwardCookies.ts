@@ -141,16 +141,16 @@ export class ForwardCookies {
    */
   getCookieFromUrl(
     cookieName?: string,
+    parsed = false,
     delimiter?: string,
     url = window.location.href
   ) {
     const COOKIE_NAME = cookieName || this.cookieName;
 
     const URLCOOKIE = url.split(`${COOKIE_NAME}=`)[1];
-    const output = this.parseCookieString(
-      URLCOOKIE,
-      delimiter ? delimiter : ""
-    );
+    const output = !parsed
+      ? URLCOOKIE
+      : this.parseCookieString(URLCOOKIE, delimiter ? delimiter : "");
 
     return output;
   }
