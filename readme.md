@@ -104,8 +104,3 @@ userCookie.getCookieFromUrl({
     "encoded": "{%22name%22:%22Bruno%22,%22username%22:%22itbruno%22}"
 }
 ```
-
-### To-do
-
-- [ ] Add detailed methods specifications and examples
-- [ ] Add testing lib and create tests (_maybe Jest_)
