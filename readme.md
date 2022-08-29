@@ -87,15 +87,18 @@ userCookie.setCookie({
 });
 
 // Generate an full url with cookie as param
-userCookie.generateCookieAsUrl('newuser');
+userCookie.generateCookieAsUrl("newuser");
 
 // Get cookie from url param
 userCookie.getCookieFromUrl({
   cookieName: "newuser",
   parsed: true,
 });
+```
 
-// output
+#### Output
+
+```js
 {
     "json": {
         "name": "Bruno",
