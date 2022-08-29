@@ -2,7 +2,7 @@
 
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/itbruno/forward-cookies/develop?label=Version&style=for-the-badge)
 
-This is a project created to work with Cookies for cross-domain in a specific project. Its a approach to pass Cookies via url params that also be useful for another projects 😊
+This is a project created to work with Cookies for cross-domain in a specific project. Its a approach to sent Cookies via url params that can be useful for other 😊
 
 ## Availables methods
 
