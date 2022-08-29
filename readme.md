@@ -15,7 +15,15 @@ This is a project created to work with Cookies for cross-domain in a specific pr
 | `getCookieFromUrl`    | Get formatted cookie from url param                                                      |
 | `parseCookieString`   | Decode Cookie stringified to return a json if posible                                    |
 
-## How to use
+## Get started
+
+### Install
+
+```shell
+$ npm i forward-cookies
+# or
+$ yarn add forward-cookies
+```
 
 To get start, import in your project and add the instance to a variables
 
