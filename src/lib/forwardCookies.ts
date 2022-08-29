@@ -6,6 +6,13 @@ interface SetCookiesProps {
   path?: string;
 }
 
+interface CookieFromUrlProps {
+  cookieName: string;
+  parsed?: boolean;
+  delimiter?: string;
+  url?: string;
+}
+
 export class ForwardCookies {
   storageCookie: string;
   debug?: boolean;
@@ -139,12 +146,12 @@ export class ForwardCookies {
    * @param {string} obj.delimiter - Optional is needed split cookie to get data
    * @param {string} obj.url - Optional if is not the current url
    */
-  getCookieFromUrl(
-    cookieName?: string,
+  getCookieFromUrl({
+    cookieName,
     parsed = false,
-    delimiter?: string,
-    url = window.location.href
-  ) {
+    delimiter,
+    url = window.location.href,
+  }: CookieFromUrlProps) {
     const COOKIE_NAME = cookieName || this.cookieName;
 
     const URLCOOKIE = url.split(`${COOKIE_NAME}=`)[1];
